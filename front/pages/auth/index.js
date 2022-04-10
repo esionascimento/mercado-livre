@@ -6,16 +6,16 @@ import { APIAuthPost } from '../../src/services'
 const Auth = () => {
     const { query: { code } } = useRouter()
     const [state, setState] = useState()
-    const [secret, setSecret] = useState()
-    console.log({secret})
+    const [secret, setSecret] = useState("");
 
-    const fetchAuth = async() => {
+    const fetchAuth = async(event) => {
+        event.preventDefault();
         if (code && !state) {
             const data = {
                 client_id: "6376278239128125",
                 client_secret: secret, 
                 code: code,
-                redirect_uri: "https://mercadao2022.herokuapp.com",
+                redirect_uri: "https://esionascimento-mercado-livre.vercel.app/auth",
                 grant_type: "authorization_code"
             }
             try {
@@ -26,10 +26,6 @@ const Auth = () => {
                 console.log("error: ", err.response)
             }
         }
-    }
-
-    const handlerOn = (e) => {
-        setSecret(e.target.value)
     }
 
     return (
@@ -56,12 +52,16 @@ const Auth = () => {
                     </div>
                 </>
             ) : code ? (
-                <div>
-                    <input type="text" name="secret" onKeyPress={(e) => handlerOn(e)} />
-                    <button onClick={() => fetchAuth()}>
-                        Enviar
-                    </button>
-                </div>
+                <form onSubmit={fetchAuth}>
+                    <label>Digite Client Secret:
+                        <input 
+                        type="text" 
+                        value={secret}
+                        onChange={(e) => setSecret(e.target.value)}
+                        />
+                    </label>
+                    <input type="submit" />
+                </form>
             ) : (
                 <div>
                     Aplicação não connectada, code obrigatório
