@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const routerAuthentication = express.Router();
 
-routerAuthentication.get('/auth', (async (_req, res, _next) => {
+/* routerAuthentication.get('/auth', (async (_req, res, _next) => {
     const grantType = process.env.GRANT_TYPE;
     const clientSecret = process.env.CLIENT_SECRET;
     const clientId= process.env.CLIENT_ID;
@@ -23,7 +23,7 @@ routerAuthentication.get('/auth', (async (_req, res, _next) => {
     } catch (error) {
         return res.json({error});
     }
-}))
+})) */
 
 routerAuthentication.post('/auth', (async (req, res, _next) => {
     const { client_id, client_secret, code, redirect_uri, grant_type } = req.body;
