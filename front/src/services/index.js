@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const API = axios.create({
-    baseURL: `http://localhost:4000`,
+    baseURL: `https://mercado-livre-inky.vercel.app`,
 });
 
 export const APIAuthPost = (data) => API.post('/auth', data);
